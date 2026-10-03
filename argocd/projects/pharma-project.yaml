@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: pharma
+  namespace: argocd
+spec:
+  description: Pharma microservices project
+
+  sourceRepos:
+    - "https://github.com/Alexatlanta1981/gitops.git"
+
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: dev
+    - server: https://kubernetes.default.svc
+      namespace: qa
+    - server: https://kubernetes.default.svc
+      namespace: prod
+
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
