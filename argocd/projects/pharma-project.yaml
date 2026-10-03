@@ -7,8 +7,7 @@ spec:
   description: Pharma microservices project
 
   sourceRepos:
-    # Replace '<your-username>' with your GitHub username or org name
-    - "https://github.com/<2208thames-cmd/gitops.git"
+    - "https://github.com/Alexatlanta1981/gitops.git"
 
   destinations:
     - server: https://kubernetes.default.svc
