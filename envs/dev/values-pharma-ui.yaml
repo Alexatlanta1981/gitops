@@ -2,7 +2,7 @@ replicaCount: 1
 fullnameOverride: pharma-ui
 image:
   repository: 058170692253.dkr.ecr.us-east-1.amazonaws.com/pharma-ui
-  tag: sha-b8aa312
+  tag: sha-ff0f031
   pullPolicy: Always
 service:
   type: ClusterIP
