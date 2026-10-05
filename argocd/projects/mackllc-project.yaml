@@ -1,10 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: pharma
+  name: mackllc
   namespace: argocd
 spec:
-  description: Pharma microservices project
+  description: Mackllc microservices project
 
   sourceRepos:
     - "https://github.com/Alexatlanta1981/gitops.git"

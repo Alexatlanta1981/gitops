@@ -1,7 +1,7 @@
 replicaCount: 1
-fullnameOverride: pharma-ui
+fullnameOverride: mackllc-ui
 image:
-  repository: 058170692253.dkr.ecr.us-east-1.amazonaws.com/pharma-ui
+  repository: 058170692253.dkr.ecr.us-east-1.amazonaws.com/mackllc-ui
   tag: sha-ff0f031
   pullPolicy: Always
 service:
@@ -14,7 +14,7 @@ ingress:
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/group.name: pharma-dev
+    alb.ingress.kubernetes.io/group.name: mackllc-dev
   host: ""
   path: /
   pathType: Prefix
@@ -67,5 +67,6 @@ volumes:
     emptyDir: {}
 serviceAccount:
   create: true
-  annotations: {}
-  name: pharma-ui
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::<ACCOUNT_ID>:role/mackllc-dev-mackllc-ui-irsa
+  name: mackllc-ui

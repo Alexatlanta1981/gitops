@@ -10,7 +10,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: pharma
+  project: mackllc
 
   source:
     repoURL: https://github.com/Alexatlanta1981/gitops.git

@@ -11,7 +11,7 @@ service:
 ingress:
   enabled: false
   className: alb
-  host: dev.pharma.internal
+  host: dev.mackllc.internal
   path: /notifications
   pathType: Prefix
 resources:
@@ -54,5 +54,6 @@ envFrom:
       name: db-credentials
 serviceAccount:
   create: true
-  annotations: {}
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::<ACCOUNT_ID>:role/mackllc-dev-notification-service-irsa
   name: notification-service

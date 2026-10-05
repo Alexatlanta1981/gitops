@@ -1,29 +1,28 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: pharma-ui-dev
+  name: mackllc-ui-qa
   namespace: argocd
   labels:
-    env: dev
-    app: pharma-ui
+    env: qa
+    app: mackllc-ui
     managed-by: terraform
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: pharma
+  project: mackllc
 
   source:
-    # Replace 'ravdy' with your GitHub username after forking zen-gitops
     repoURL: https://github.com/Alexatlanta1981/gitops.git
     targetRevision: HEAD
     path: helm-charts
     helm:
       valueFiles:
-        - ../envs/dev/values-pharma-ui.yaml
+        - ../envs/qa/values-mackllc-ui.yaml
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: dev
+    namespace: qa
 
   syncPolicy:
     automated:

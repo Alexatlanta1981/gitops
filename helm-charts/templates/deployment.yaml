@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "pharma-service.fullname" . }}
+  name: {{ include "mackllc-service.fullname" . }}
   labels:
-    {{- include "pharma-service.labels" . | nindent 4 }}
+    {{- include "mackllc-service.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "pharma-service.selectorLabels" . | nindent 6 }}
+      {{- include "mackllc-service.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
@@ -19,13 +19,13 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
       labels:
-        {{- include "pharma-service.selectorLabels" . | nindent 8 }}
+        {{- include "mackllc-service.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "pharma-service.serviceAccountName" . }}
+      serviceAccountName: {{ include "mackllc-service.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
@@ -43,7 +43,7 @@ spec:
           envFrom:
             {{- if .Values.configmap }}
             - configMapRef:
-                name: {{ include "pharma-service.fullname" . }}
+                name: {{ include "mackllc-service.fullname" . }}
             {{- end }}
             {{- with .Values.envFrom }}
             {{- toYaml . | nindent 12 }}
