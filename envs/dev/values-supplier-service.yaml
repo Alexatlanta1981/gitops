@@ -58,5 +58,6 @@ volumes:
     emptyDir: {}
 serviceAccount:
   create: true
-  annotations: {}
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::<ACCOUNT_ID>:role/pharma-dev-supplier-service-irsa
   name: supplier-service
