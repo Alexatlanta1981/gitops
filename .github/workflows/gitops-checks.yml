@@ -1,0 +1,75 @@
+name: GitOps checks
+
+# Required status checks for main. Runs on every PR (no path filters) so required checks never hang.
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  HELM_VERSION: v3.16.3
+  KUBECONFORM_VERSION: v0.6.7
+  CONFTEST_VERSION: 0.56.0
+  K8S_VERSION: 1.31.0
+
+jobs:
+  yaml-lint:
+    name: YAML Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: pip install yamllint==1.35.1
+      # helm templates contain Go templating, so lint only plain YAML
+      - run: yamllint -c .yamllint.yaml argocd envs k8s
+
+  helm-lint:
+    name: Helm Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install helm
+        run: curl -fsSL "https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz" | sudo tar -xz -C /usr/local/bin --strip-components=1 linux-amd64/helm
+      - name: Lint chart with every env values file
+        run: |
+          set -e
+          for f in envs/*/values-*.yaml; do
+            echo "== $f"; helm lint helm-charts -f "$f"
+          done
+
+  render:
+    name: Render, validate and policy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install tools
+        run: |
+          curl -fsSL "https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz" | sudo tar -xz -C /usr/local/bin --strip-components=1 linux-amd64/helm
+          curl -fsSL "https://github.com/yannh/kubeconform/releases/download/${KUBECONFORM_VERSION}/kubeconform-linux-amd64.tar.gz" | sudo tar -xz -C /usr/local/bin kubeconform
+          curl -fsSL "https://github.com/open-policy-agent/conftest/releases/download/v${CONFTEST_VERSION}/conftest_${CONFTEST_VERSION}_Linux_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin conftest
+      - name: Render charts for every env
+        run: |
+          mkdir -p rendered
+          for f in envs/*/values-*.yaml; do
+            n=$(echo "$f" | sed 's#envs/##; s#/#-#; s#\.yaml$##')
+            helm template "$n" helm-charts -f "$f" > "rendered/$n.yaml"
+          done
+          cp -r k8s/raw-manifests rendered/raw
+      - name: Kubeconform (manifest schema validation)
+        run: kubeconform -strict -summary -ignore-missing-schemas -kubernetes-version "$K8S_VERSION" rendered argocd k8s
+      - name: Policy checks (privileged, hostPath, latest, pinned tags)
+        run: conftest test --policy policy --all-namespaces $(find rendered -name '*.yaml')
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: config
+          scan-ref: .
+          severity: CRITICAL,HIGH
+          exit-code: '1'
