@@ -1,14 +1,14 @@
 apiVersion: v2
-name: pharma-service
-description: Common Helm chart for Pharma microservices
+name: mackllc-service
+description: Common Helm chart for Mackllc microservices
 type: application
 version: 1.0.0
 appVersion: "1.0.0"
 keywords:
-  - pharma
+  - mackllc
   - microservice
   - java
   - spring-boot
 maintainers:
-  - name: Pharma DevOps Team
-    email: devops@pharma.com
+  - name: Mackllc DevOps Team
+    email: devops@mackllc.com

@@ -13,7 +13,7 @@ service:
 ingress:
   enabled: false
   className: alb
-  host: dev.pharma.internal
+  host: dev.mackllc.internal
   path: /catalog
   pathType: Prefix
 resources:
@@ -62,5 +62,5 @@ volumes:
 serviceAccount:
   create: true
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::<ACCOUNT_ID>:role/pharma-dev-drug-catalog-service-irsa
+    eks.amazonaws.com/role-arn: arn:aws:iam::<ACCOUNT_ID>:role/mackllc-dev-drug-catalog-service-irsa
   name: drug-catalog-service

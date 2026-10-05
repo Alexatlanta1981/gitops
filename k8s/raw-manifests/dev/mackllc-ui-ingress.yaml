@@ -1,12 +1,12 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: pharma-ui
+  name: mackllc-ui
   namespace: dev
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/group.name: pharma-dev
+    alb.ingress.kubernetes.io/group.name: mackllc-dev
 spec:
   ingressClassName: alb
   rules:
@@ -16,6 +16,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: pharma-ui
+                name: mackllc-ui
                 port:
                   number: 80

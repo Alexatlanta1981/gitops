@@ -11,7 +11,7 @@ service:
 ingress:
   enabled: false
   className: alb
-  host: dev.pharma.internal
+  host: dev.mackllc.internal
   path: /qc
   pathType: Prefix
 resources:
@@ -56,5 +56,5 @@ volumes:
 serviceAccount:
   create: true
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::<ACCOUNT_ID>:role/pharma-dev-qc-service-irsa
+    eks.amazonaws.com/role-arn: arn:aws:iam::<ACCOUNT_ID>:role/mackllc-dev-qc-service-irsa
   name: qc-service

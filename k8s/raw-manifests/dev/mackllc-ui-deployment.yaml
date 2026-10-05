@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pharma-ui
+  name: mackllc-ui
   namespace: dev
   labels:
-    app: pharma-ui
+    app: mackllc-ui
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pharma-ui
+      app: mackllc-ui
   template:
     metadata:
       labels:
-        app: pharma-ui
+        app: mackllc-ui
     spec:
-      serviceAccountName: pharma-ui
+      serviceAccountName: mackllc-ui
       securityContext:
         runAsNonRoot: true
       containers:
-        - name: pharma-ui
-          image: 058170692253.dkr.ecr.us-east-1.amazonaws.com/pharma-ui:sha-0d828ec
+        - name: mackllc-ui
+          image: 058170692253.dkr.ecr.us-east-1.amazonaws.com/mackllc-ui:sha-0d828ec
           securityContext:
             readOnlyRootFilesystem: true
           ports:
