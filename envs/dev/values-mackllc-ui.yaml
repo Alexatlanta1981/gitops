@@ -2,7 +2,7 @@ replicaCount: 1
 fullnameOverride: mackllc-ui
 image:
   repository: <ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/mackllc-ui
-  tag: sha-3607b80
+  tag: sha-7c59544
   pullPolicy: Always
 service:
   type: ClusterIP
