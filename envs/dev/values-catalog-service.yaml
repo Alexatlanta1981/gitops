@@ -3,7 +3,7 @@ replicaCount: 1
 # and matches the default URL expected by api-gateway
 fullnameOverride: drug-catalog-service
 image:
-  repository: 058170692253.dkr.ecr.us-east-1.amazonaws.com/drug-catalog-service
+  repository: <ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/drug-catalog-service
   tag: sha-ed9f0d3
   pullPolicy: Always
 service:
@@ -62,5 +62,5 @@ volumes:
 serviceAccount:
   create: true
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::058170692253:role/mackllc-dev-drug-catalog-service-irsa
+    eks.amazonaws.com/role-arn: arn:aws:iam::<ACCOUNT_ID>:role/mackllc-dev-drug-catalog-service-irsa
   name: drug-catalog-service
