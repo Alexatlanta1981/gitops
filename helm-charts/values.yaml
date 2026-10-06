@@ -1,3 +1,6 @@
+global:
+  awsAccountId: ""
+
 replicaCount: 1
 
 image:

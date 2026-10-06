@@ -1,7 +1,7 @@
 replicaCount: 1
 fullnameOverride: notification-service
 image:
-  repository: 058170692253.dkr.ecr.us-east-1.amazonaws.com/notification-service
+  repository: <ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/notification-service
   tag: sha-ed9f0d3
   pullPolicy: Always
 service:
@@ -55,5 +55,5 @@ envFrom:
 serviceAccount:
   create: true
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::058170692253:role/mackllc-dev-notification-service-irsa
+    eks.amazonaws.com/role-arn: arn:aws:iam::<ACCOUNT_ID>:role/mackllc-dev-notification-service-irsa
   name: notification-service

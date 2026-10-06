@@ -1,7 +1,7 @@
 replicaCount: 1
 fullnameOverride: mackllc-ui
 image:
-  repository: 058170692253.dkr.ecr.us-east-1.amazonaws.com/mackllc-ui
+  repository: <ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/mackllc-ui
   tag: sha-3607b80
   pullPolicy: Always
 service:
@@ -68,5 +68,5 @@ volumes:
 serviceAccount:
   create: true
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::058170692253:role/mackllc-dev-mackllc-ui-irsa
+    eks.amazonaws.com/role-arn: arn:aws:iam::<ACCOUNT_ID>:role/mackllc-dev-mackllc-ui-irsa
   name: mackllc-ui

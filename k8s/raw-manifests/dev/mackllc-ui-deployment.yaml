@@ -20,7 +20,7 @@ spec:
         runAsNonRoot: true
       containers:
         - name: mackllc-ui
-          image: 058170692253.dkr.ecr.us-east-1.amazonaws.com/mackllc-ui:sha-0d828ec
+          image: <ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/mackllc-ui:sha-0d828ec
           securityContext:
             readOnlyRootFilesystem: true
           ports:

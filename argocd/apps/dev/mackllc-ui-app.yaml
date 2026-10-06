@@ -14,10 +14,13 @@ spec:
 
   source:
     # Replace 'ravdy' with your GitHub username after forking zen-gitops
-    repoURL: https://github.com/Alexatlanta1981/gitops.git
+    repoURL: https://github.com/your-github-username/gitops.git
     targetRevision: HEAD
     path: helm-charts
     helm:
+      parameters:
+        - name: global.awsAccountId
+          value: "your-aws-account-id"
       valueFiles:
         - ../envs/dev/values-mackllc-ui.yaml
 
